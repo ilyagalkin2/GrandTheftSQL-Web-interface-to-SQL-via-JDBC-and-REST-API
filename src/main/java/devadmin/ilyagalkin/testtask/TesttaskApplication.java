@@ -111,7 +111,7 @@ public class TesttaskApplication {
 //    "population": "populationB"
 //}
 //
-//###
+//### UPDATE
 //
 //
 //PUT http://localhost:8080/api/cities/3
@@ -130,7 +130,7 @@ public class TesttaskApplication {
 //    "district": "districtB",
 //    "population": "population asfsadvfsdv"
 //}
-//###
+//### DELETE
 //
 //DELETE http://localhost:8080/api/cities/2
 //

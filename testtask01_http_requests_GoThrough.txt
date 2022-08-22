@@ -88,7 +88,7 @@ GET http://localhost:8080/api/cities/2
     "population": "populationB"
 }
 
-###
+### UPDATE
 
 
 PUT http://localhost:8080/api/cities/3
@@ -107,7 +107,7 @@ PUT http://localhost:8080/api/cities/3
     "district": "districtB",
     "population": "population asfsadvfsdv"
 }
-###
+### DELETE
 
 DELETE http://localhost:8080/api/cities/2
 
