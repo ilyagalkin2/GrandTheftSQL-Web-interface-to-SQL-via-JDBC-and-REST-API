@@ -1,0 +1,36 @@
+
+body {
+    background-color: #ededed;
+        font-size: larger;
+        font-family: 'Open Sans', sans-serif;    
+    }
+.container {
+    width: 794px;
+    margin: auto;
+    padding-top: 0px;
+    padding-bottom: 100px;
+}
+    
+.image01 {
+    max-width: 100%;
+    object-fit: contain;
+
+}
+
+.bg-light-blue {
+    background-color: #9ee9e5;
+}
+
+.bg-green {
+    background-color: #c7ecc7;
+}
+
+.bg-yellow {
+    background-color: #dfeb75;
+}
+
+.image02 {
+    
+    max-width: 100%;
+    object-fit: contain;
+}

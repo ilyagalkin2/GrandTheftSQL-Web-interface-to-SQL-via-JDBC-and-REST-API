@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"devadmin.ilyagalkin.testtask"},{"l":"devadmin.ilyagalkin.testtask.controller"},{"l":"devadmin.ilyagalkin.testtask.model"},{"l":"devadmin.ilyagalkin.testtask.repository"}]

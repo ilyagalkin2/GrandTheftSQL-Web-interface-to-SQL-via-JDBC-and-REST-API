@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <!-- Tags added in 'Visual Studio Code' -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test task for Ilya Galkin ilyagalkin2.github.io/CV/ | Java developer</title>
+    <link rel="stylesheet" th:href="@{/css/stylesForHomepage.css}">
+</head>
+
+<body>
+    <div class="container">
+        <img src="image_devadmin_top.jpg" alt="image_devadmin_top.jpg" class="image01" />
+        <h3>Test task for Ilya Galkin, Java developer.</h3>
+        <p>E-mail: <a href="mailto:ilya.en.ru.fr.galkin@gmail.com">ilya.en.ru.fr.galkin@gmail.com</a></p>
+        <p>+7 913 428 59 91 | Telegram</p>
+
+
+        <div class="bg-green">
+            <p>>>> Let's go explore! </br>
+                The fantastic world of SQL queries! </br>
+                Start here:</p>
+            <a href="/homepage">/homepage</a>
+            </br>
+            <form th:action="@{/homepage}"  method="post">
+                <input type="text" th:value="${queryString}" name="queryString"/>
+                <input type="submit" />
+            </form>
+            </br>
+            <p>Our database looks like this: </br>
+                <span th:text="${databaseAfterQuery}">_database_ </span>
+            </p>
+        </div>
+
+
+        <p align="right" style="font-size:larger">Technical task</p>
+        <p align="left" style="font-size:larger">Task</p>
+        <br>
+            Create a program powered by Spring. You should implement data storage with</br>
+            interface with single public method:</br>
+            String query(String queryString)</br>
+            This method allows us to perform SQL-like requests. It should support next</br>
+            operations:</br>
+            CREATE TABLE table_name (</br>
+            column1,</br>
+            column2,</br>
+            column3,</br>
+            ....</br>
+            );</br>
+            INSERT INTO table_name (column1, column2, column3, ...)</br>
+            VALUES (value1, value2, value3, ...);</br>
+            SELECT column1, column2, ...</br>
+            FROM table_name;</br>
+            DELETE FROM table_name WHERE condition;</br>
+            This storage supports only String types.</br>
+            For select method should return String in next format:</br>
+            column1Row1, column2Row1, …; column1Row2, column2Row2, …</br>
+            Initially the program should initialize one table ‘city’ with fields (id, name,</br>
+            countryCode, district, population). Please provide CRUD operations to this table</br>
+            with Rest API.</br>
+            Don’t make the program too complex but make it flexible enough to extend SQL</br>
+            syntax.</br>
+            Provide a link on this project in github when you finish.</br>
+        </p>
+
+        <!--
+            <img src="english-to-russian-sample.jpg" alt="english-to-russian-sample.jpg" class="image02" />
+            -->
+    </div>
+
+</body>
+
+</html>
