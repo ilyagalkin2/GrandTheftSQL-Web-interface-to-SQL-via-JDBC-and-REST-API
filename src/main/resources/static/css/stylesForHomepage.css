@@ -17,20 +17,6 @@ body {
 
 }
 
-.bg-light-blue {
-    background-color: #9ee9e5;
-}
-
 .bg-green {
     background-color: #c7ecc7;
-}
-
-.bg-yellow {
-    background-color: #dfeb75;
-}
-
-.image02 {
-    
-    max-width: 100%;
-    object-fit: contain;
 }

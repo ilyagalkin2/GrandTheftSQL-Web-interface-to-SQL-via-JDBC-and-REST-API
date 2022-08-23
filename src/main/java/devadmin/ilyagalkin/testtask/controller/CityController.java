@@ -12,6 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * This class is a Controller for <em>REST API</em>, and it
+ * can be used in computer software like <em>Postman</em>
+ */
 @RestController
 @RequestMapping("/api")
 public class CityController {
@@ -34,14 +38,6 @@ public class CityController {
 				city.addAll(cityRepository.findAll());
 			} else {
                 city.addAll(cityRepository.findByNameContaining(param));
-
-				//var example = new User();
-
-				//to find User1
-				//example.setName("User1");
-
-				//example.setName(param);
-				//cities.addAll(userRepository.findAll(Example.of(example)));
 			}
 
 			if (city.isEmpty()) {

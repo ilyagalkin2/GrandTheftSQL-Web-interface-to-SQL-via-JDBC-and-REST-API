@@ -2,6 +2,12 @@ package devadmin.ilyagalkin.testtask.model;
 
 import javax.persistence.*;
 
+/**
+ * This class describes the database we create initially.
+ * @see devadmin.ilyagalkin.testtask.controller.ApiForDatabase
+ * @see devadmin.ilyagalkin.testtask.controller.CityController
+ *
+ */
 @Entity
 @Table(name = "City")
 public class City {

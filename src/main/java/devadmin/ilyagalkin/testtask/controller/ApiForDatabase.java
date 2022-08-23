@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.*;
 
+/**
+ * This class is a Controller for Web Interface.
+ * Web interface is available at: http://localhost:8080/homepage
+ */
 @Controller
 public class ApiForDatabase {
 
@@ -20,38 +24,55 @@ public class ApiForDatabase {
 	@Value("${spring.datasource.password}")
 	private String password;
 
+
+
 	/**
 	 * Web interface that uses Thymeleaf template engine, available at
 	 * http://localhost:8080/homepage
 	 *
 	 * @param model a stock Thymeleaf's method
-	 * @param queryString an SQL query that is provided with a Thymeleaf template
+	 * @param queryString an SQL query that is provided with a Thymeleaf
 	 * template engine, can be null
 	 * @return queries the database and shows it as a line of text where rows are
 	 * separated with a semicolon ';'
 	 */
 	@RequestMapping("/homepage")
-	public String query(Model model, @RequestParam(required = false) String queryString) {
-		System.out.println("\n \n \n" + "Controller at \"/homepage\" is working!");
-		System.out.println("At \"/homepage\", queryString is: " + queryString + "\n \n \n");
+	public String query(Model model, @RequestParam(required = false, defaultValue = "select * from city;") String queryString) {
 
+		/**
+		 * Calls method and gives the <em>String</em> with an SQL query to it
+		 * @see ApiForDatabase#update(String)
+		 */
 		String databaseAfterQuery = update(queryString);
-//
-//		model.addAttribute("databaseAfterQuery", databaseAfterQuery);
 
+		System.out.println("The database written to String is having following length: " + databaseAfterQuery.length());
+
+		if (databaseAfterQuery.length() == 0) {
+			databaseAfterQuery = "The table is empty, add some rows.";
+		}
+
+		model.addAttribute("databaseAfterQuery", databaseAfterQuery);
 
 		return "homepage";
 	}
 
+
+
 	/**
-	 * Connects to the database and creates a table if it doesn't exist
-	 * @return connection via <em>DriverManager</em>
+	 * Connects to the database and creates a table if it doesn't exist;
+	 * this method is called from another method
+	 * @see ApiForDatabase#update(String)
+	 *
+	 * @return Connection <em>connection</em>
 	 */
 	private Connection connect() {
 
 		Connection conn = null;
+		/**
+		 * Connects to the database and creates the table if it doesn't exist
+		 */
 		try {
-			//conn = DriverManager.getConnection("jdbc:postgresql://localhost:8088/somedb", "someuser", "somepass");
+			//conn = DriverManager.getConnection("jdbc:postgresql://localhost:8088/city", "someuser", "somepass");
 			conn = DriverManager.getConnection(url, username, password);
 			System.out.println("Connection to postges:alpine image has been established.");
 			conn.createStatement().executeQuery("create table IF NOT EXISTS city (\n" +
@@ -63,6 +84,7 @@ public class ApiForDatabase {
 					"    primary key (id)\n" +
 					");");
 			System.out.println("Table has been created.");
+
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
@@ -70,43 +92,73 @@ public class ApiForDatabase {
 	}
 
 	/**
-	 * Updates the table given an SQL command.
+	 * Updates the table getting an SQL command from user input on web page.
+	 *
 	 * @param queryString a <em>String</em> with SQL command
 	 * @return columns row by row as <em>String</em> seprated with semicolon ';'
 	 */
 	public String update(String queryString) {
-		//String sql2 = "update \"Contacts\" set email=? where id=?";
 
-		try (Connection conn = this.connect();
-			PreparedStatement stmt = conn.prepareStatement(queryString)) {
-			stmt.executeUpdate();
+		System.out.println(queryString);
+
+		ResultSet rs = null;
+		/**
+		 * Calls the method to connect
+		 * @see ApiForDatabase#connect()
+		 * and uses it to make a query using the <em>String</em> with SQL command
+		 * that was inputted by the user on web page
+		 */
+		try (Connection conn = this.connect()) {
+			 Statement stmt = conn.createStatement();
+			rs = stmt.executeQuery(queryString);
 			System.out.println("Database updated successfully");
-
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
 
-		String selectAllFromCity = "select * from city";
+		/**
+		 * After some SQL commands like 'insert' ResultSet can be obtained
+		 * from 'select * from table_name' command (what is not affordable for
+		 * large databases);
+		 * if the ResultSet is still containing nothing, then the database is empty,
+		 * and it prints into the console a message to "add some rows"
+		 *
+		 */
+		if (rs == null) {
+			try (Connection conn = this.connect()) {
+				Statement stmt = conn.createStatement();
+				rs = stmt.executeQuery("select * from city;");
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		} else if (rs == null) {
+			System.out.println("\n \n \n" + "The table is empty, add some rows." + "\n \n \n");
+		}
+
+		/**
+		 * Adds the columns' values to <em>StringBuilder</em>,
+		 * with the formatting we want,
+		 * and then creates the <em>String</em>
+		 */
 		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder = null;
-		String databaseFormatted = "";
-		try (Connection conn = this.connect()) {
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(selectAllFromCity);
-			// loop through the result set
+		try {
 			while (rs.next()) {
 				stringBuilder.append(
-						//rs.getInt("id") + "\t" +
-						rs.getString("name") + "\t" +
-						rs.getString("countryCode") + "\t" +
-						rs.getString("district") + "\t" +
+						rs.getString("name") + ", " +
+						rs.getString("countryCode") + ", " +
+						rs.getString("district") + ", " +
 						rs.getString("population") + "; ");
 			}
-			databaseFormatted = stringBuilder.toString();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		return databaseFormatted;
+
+		String databaseAfterQuery = stringBuilder.toString();
+
+		System.out.println("The databaseAfterQuery: ");
+		System.out.println(databaseAfterQuery);
+
+		return databaseAfterQuery;
 	}
 
 }
