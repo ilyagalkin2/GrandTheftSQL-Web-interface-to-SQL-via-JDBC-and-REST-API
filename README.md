@@ -1,4 +1,6 @@
-### PostgreSQL runs in Docker on port 8088
+### ForthrightSQL. Web interface to SQL via JDBC to PostgreSQL as Docker image. And REST API.
+
+PostgreSQL runs in Docker on port 8088
 Why?
 Conflicts with port 5432 of actual installation of PostgreSQL
 
