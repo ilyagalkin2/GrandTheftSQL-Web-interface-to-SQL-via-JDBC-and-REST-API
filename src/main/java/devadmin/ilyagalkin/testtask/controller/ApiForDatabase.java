@@ -74,7 +74,7 @@ public class ApiForDatabase {
 		try {
 			//conn = DriverManager.getConnection("jdbc:postgresql://localhost:8088/city", "someuser", "somepass");
 			conn = DriverManager.getConnection(url, username, password);
-			System.out.println("Connection to postges:alpine image has been established.");
+			System.out.println("Connection to postgres:alpine image has been established.");
 			conn.createStatement().executeQuery("create table IF NOT EXISTS city (\n" +
 					"    id INT generated always as identity,\n" +
 					"    name VARCHAR(30) not null,\n" +
@@ -95,9 +95,9 @@ public class ApiForDatabase {
 	 * Updates the table getting an SQL command from user input on web page.
 	 *
 	 * @param queryString a <em>String</em> with SQL command
-	 * @return columns row by row as <em>String</em> seprated with semicolon ';'
+	 * @return columns row by row as <em>String</em> separated with semicolon ';'
 	 */
-	public String update(String queryString) {
+	private String update(String queryString) {
 
 		System.out.println(queryString);
 
