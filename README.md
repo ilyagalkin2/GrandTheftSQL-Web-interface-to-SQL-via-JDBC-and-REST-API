@@ -1,4 +1,4 @@
-### ForthrightSQL. Web interface to SQL via JDBC to PostgreSQL as Docker image. And REST API.
+### GrandThefttSQL. Web interface to SQL via JDBC to PostgreSQL as Docker image, with REST API.
 
 PostgreSQL runs in Docker on port 8088
 Why?
